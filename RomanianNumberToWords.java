@@ -39,7 +39,8 @@ public class RomanianNumberToWords {
         numberWords.put(90, "nouăzeci");
     }
 
-    public static StringBuilder convertNumberToWords(String number) {
+    public static StringBuilder convertNumberToWords(String nr) {
+        String number = nr.replace(",", "");
         if (number == null || number.isEmpty()) {
             throw new IllegalArgumentException("Number cannot be null or empty");
         }
@@ -98,10 +99,6 @@ public class RomanianNumberToWords {
                                                              StringBuilder numberClone) {
         if (numberClone.length() == 1) {
             wordsList.remove(wordsList.size() - 1);
-//        } else if (numberClone.length() == 0) {
-//            wordsList.remove(wordsList.size() - 1);
-//            wordsList.remove(wordsList.size() - 1);
-//        }
         }
     }
 
@@ -117,7 +114,7 @@ public class RomanianNumberToWords {
                 count += 3;
             }
         }
-        if (numberClone.length() >= 3 && threeDigitToConvert.charAt(0) != '0') {
+        if (numberClone.length() > 3 && Integer.parseInt(threeDigitToConvert) != 0) {
             wordsList.add(NumereEnum.getByNumber(count).toString());
             wordsList.add(" ");
         }
@@ -130,8 +127,6 @@ public class RomanianNumberToWords {
                                                       String threeDigitToConvert) {
         if (numberClone.length() == 3 && Integer.parseInt(threeDigitToConvert) % 100 == 0) {
             count += 3;
-            wordsList.add(NumereEnum.getByNumber(count).toString());
-            wordsList.add(" ");
             wordsList.add(convertThreeDigitNumber(String.valueOf(numberClone)));
             numberClone.delete(numberClone.length() - 3, numberClone.length());
         }
